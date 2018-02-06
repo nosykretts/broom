@@ -13,7 +13,9 @@ import {
 } from 'react-native';
 // import { RNCamera, FaceDetector } from 'react-native-camera';
 import Camera from 'react-native-camera';
+import {INJECT_SCRIPT} from "./injectScript";
 
+const KEY_FOV = 'fov'
 
 
 export default class App extends Component {
@@ -26,7 +28,6 @@ export default class App extends Component {
           ref={(cam) => {
             this.camera = cam;
           }}
-          onBarCodeRead={this.onBarCodeRead.bind(this)}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}
           >
@@ -35,12 +36,7 @@ export default class App extends Component {
       </View>
     );
   }
-  onBarCodeRead(e) {
-    console.log(
-      "Barcode Found!",
-      "Type: " + e.type + "\nData: " + e.data
-    );
-  }
+
 
   takePicture() {
     const options = {};
