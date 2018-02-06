@@ -9,12 +9,18 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  NativeModules,
+  WebView
 } from 'react-native';
 // import { RNCamera, FaceDetector } from 'react-native-camera';
+// import WebViewBridge from 'react-native-webview-bridge'
 import Camera from 'react-native-camera';
 
-
+import { INJECT_SCRIPT } from './injectScript'
+// import { KEY_FOV } from '../constants'
+const KEY_FOV = 'fov'
+const FOVManager = NativeModules.FOVComponent || NativeModules.FOVModule
 
 export default class App extends Component {
 
@@ -28,8 +34,16 @@ export default class App extends Component {
           }}
           onBarCodeRead={this.onBarCodeRead.bind(this)}
           style={styles.preview}
-          aspect={Camera.constants.Aspect.fill}
-          >
+          aspect={Camera.constants.Aspect.fill}>
+          <WebView
+            ref={webview => { this.webview = webview }}
+            javaScriptEnabled={true}
+            onBridgeMessage={this._onMessage}
+            injectedJavaScript={INJECT_SCRIPT}
+            source={{uri: 'https://samples.argonjs.io/geopose/index.html'}} //Change to local file or your url
+            style={styles.webview}
+          />
+          
           <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
         </Camera>
       </View>
