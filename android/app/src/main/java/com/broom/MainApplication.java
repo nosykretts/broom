@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import org.reactnative.camera.RNCameraPackage;
-
+import android.webkit.WebView;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -45,6 +45,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    WebView.setWebContentsDebuggingEnabled(true);
     SoLoader.init(this, /* native exopackage */ false);
   }
 }
